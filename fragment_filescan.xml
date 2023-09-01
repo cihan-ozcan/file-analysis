@@ -1,0 +1,244 @@
+<RelativeLayout xmlns:ads="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFFFFF">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/ad_container">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+          
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:padding="8dp">
+
+                <EditText
+                    android:id="@+id/id_input"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    android:padding="8dp"
+                    android:hint="@string/enter_id_hint"
+                    android:inputType="text"
+                    android:background="@drawable/custom_edittext_background" />
+
+                <ImageButton
+                    android:id="@+id/scan_id_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="8dp"
+                    android:background="@drawable/button_background"
+                    android:contentDescription="Scan"
+                    android:padding="11dp"
+                    android:src="@drawable/baseline_manage_search_24" />
+
+            </LinearLayout>
+
+
+           
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="4dp"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp">
+
+                <ImageButton
+                    android:id="@+id/upload_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/rounded_button_with_border"
+                android:contentDescription="Upload File"
+                android:padding="16dp"
+                android:src="@drawable/baseline_file_upload_24" />
+
+                <ImageButton
+                    android:id="@+id/retrieve_recent_apks_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/rounded_button_with_border"
+                    android:contentDescription="Retrieve Recent APKs"
+                    android:padding="16dp"
+                    android:src="@drawable/baseline_file_present_24" />
+
+                <ImageButton
+                    android:id="@+id/retrieve_apk"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="8dp"
+                    android:elevation="4dp"
+                    android:background="@drawable/rounded_button_with_border"
+                    android:contentDescription="Retrieve APK"
+                    android:padding="16dp"
+                    android:src="@drawable/baseline_apps_24" />
+            </LinearLayout>
+
+        
+
+            <LinearLayout
+                android:layout_marginTop="8dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <ImageButton
+                    android:id="@+id/copy_id_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_copy"
+                    android:background="@android:color/white"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/id_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="id_text"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/custom_textview_background"
+                    android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dp">
+
+                <ImageButton
+                    android:id="@+id/copy_sha256_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/white"
+                    android:src="@drawable/ic_copy"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="gone"/>
+
+                <TextView
+                    android:id="@+id/sha256_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:ellipsize="end"
+                    android:text="sha256_text"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/custom_textview_background"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+
+
+           
+
+            <FrameLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center">
+
+                <com.github.mikephil.charting.charts.PieChart
+                    android:id="@+id/pieChart"
+                    android:layout_width="230dp"
+                    android:layout_height="230dp"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="8dp"
+                    android:visibility="invisible" />
+            </FrameLayout>
+
+          
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="4dp">
+
+                <View
+                    android:id="@+id/color_bar2"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="10dp"
+                    android:layout_height="16dp"
+                    android:layout_below="@id/scanner_name"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginRight="16dp"
+                    android:visibility="gone"
+                    android:background="@drawable/linear_color_scale" />
+
+                <include layout="@layout/card_layout" android:id="@+id/card1" android:visibility="gone"/>
+                <include layout="@layout/card_layout" android:id="@+id/card2" android:visibility="gone"/>
+                <include layout="@layout/card_layout" android:id="@+id/card3" android:visibility="gone"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center"
+                android:layout_marginTop="16dp">
+
+                <ImageButton
+                    android:id="@+id/save_id_button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/rounded_button"
+                    android:contentDescription="Save ID"
+                    android:padding="16dp"
+                    android:visibility="gone"
+                    android:src="@drawable/ic_save" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/ad_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center">
+
+        <com.google.android.gms.ads.AdView
+            android:id="@+id/adView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            ads:adSize="LARGE_BANNER"
+            ads:adUnitId="your_ad_key"></com.google.android.gms.ads.AdView>
+
+    </LinearLayout>
+
+    <FrameLayout
+        android:id="@+id/loading_overlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:background="#BBFFFFFF">
+
+        <ProgressBar
+            android:id="@+id/loading_spinner"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:indeterminateTint="@color/bottom_navigation_background"
+            android:layout_gravity="center" />
+
+    </FrameLayout>
+
+</RelativeLayout>

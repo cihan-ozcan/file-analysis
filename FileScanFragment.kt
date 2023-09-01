@@ -1,4 +1,4 @@
-package com.securebridgelink.sblink
+package com.Example.example
 
 import android.Manifest
 import android.app.Activity

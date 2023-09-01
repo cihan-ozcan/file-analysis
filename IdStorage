@@ -1,0 +1,39 @@
+package com.securebridgelink.sblink
+
+import android.content.Context
+
+class IdStorage(private val context: Context) {
+
+    private val sharedPreferences = context.getSharedPreferences("saved_ids", Context.MODE_PRIVATE)
+
+    fun saveId(id: String, time: String, fileName: String) {
+        val editor = sharedPreferences.edit()
+        val existingIds = getIds().toMutableSet()
+        val combinedInfo = "$id|$time|$fileName"
+        existingIds.add(combinedInfo)
+        editor.putStringSet("ids", existingIds)
+        editor.apply()
+    }
+
+    fun getIds(): MutableSet<String> {
+        return sharedPreferences.getStringSet("ids", mutableSetOf()) ?: mutableSetOf()
+    }
+
+    fun removeId(id: String, time: String, fileName: String) {
+        val existingIds = getIds().toMutableSet()
+        val combinedInfo = "$id|$time|$fileName"
+        existingIds.remove(combinedInfo)
+        val editor = sharedPreferences.edit()
+        editor.putStringSet("ids", existingIds)
+        editor.apply()
+    }
+
+    fun parseInfo(combinedInfo: String): Triple<String, String, String>? {
+        val parts = combinedInfo.split("|")
+        return if (parts.size == 3) {
+            Triple(parts[0], parts[1], parts[2])
+        } else {
+            null
+        }
+    }
+}

@@ -1,0 +1,27 @@
+package com.example.example
+
+import android.content.Context
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.ArrayAdapter
+import android.widget.ImageView
+import android.widget.TextView
+import com.example.sblink.R
+
+class ApkListAdapter(private val mContext: Context, private val apkList: List<ApkItem>) : ArrayAdapter<ApkListAdapter.ApkItem>(mContext, 0, apkList) {
+
+    data class ApkItem(val name: String, val path: String)
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        val view = convertView ?: LayoutInflater.from(mContext).inflate(R.layout.apk_list_item, parent, false)
+        val apkIcon = view.findViewById<ImageView>(R.id.apkIcon)
+        val apkName = view.findViewById<TextView>(R.id.apkName)
+
+        val apkItem = getItem(position)!!
+        apkIcon.setImageResource(R.drawable.default_apk_icon) // Varsayılan ikonu set ediyoruz
+        apkName.text = apkItem.name
+
+        return view
+    }
+}

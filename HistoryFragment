@@ -1,0 +1,90 @@
+package com.example.example
+
+import android.content.Context
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.example.sblink.R
+import com.google.android.gms.ads.AdRequest
+import com.google.android.gms.ads.AdView
+import com.securebridgelink.sblink.ui.HistoryAdapter
+
+class HistoryFragment : Fragment() {
+
+    private lateinit var idStorage: IdStorage
+    private lateinit var savedItems: MutableList<Triple<String, String, String>>
+    private lateinit var adView: AdView
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(false)
+    }
+
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.fragment_history, container, false)
+
+        adView = view?.findViewById(R.id.adView) as AdView
+
+
+  
+        val adRequest = AdRequest.Builder().build()
+
+     
+        adView.loadAd(adRequest)
+    }
+    override fun onDestroy() {
+        if (::adView.isInitialized) {
+          
+        }
+        super.onDestroy()
+    }
+
+
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        setDarkModeBackground()
+        (activity as AppCompatActivity).supportActionBar?.title = getString(R.string.id_history_title)
+
+        idStorage = IdStorage(requireContext())
+
+        savedItems = idStorage.getIds().mapNotNull { idStorage.parseInfo(it) }.toMutableList()
+
+
+        val recyclerView: RecyclerView = view.findViewById(R.id.history_recycler_view)
+        recyclerView.layoutManager = LinearLayoutManager(context)
+
+        if (savedItems.isEmpty()) {
+            recyclerView.visibility = View.GONE
+        } else {
+            recyclerView.visibility = View.VISIBLE
+            val adapter = HistoryAdapter(savedItems) { position ->
+                val item = savedItems[position]
+                savedItems.removeAt(position)
+                idStorage.removeId(item.first, item.second, item.third)
+                recyclerView.adapter?.notifyItemRemoved(position)
+            }
+
+            recyclerView.adapter = adapter
+        }
+    }
+    private fun setDarkModeBackground() {
+        val sharedPreferences = requireActivity().getSharedPreferences("app_settings", Context.MODE_PRIVATE)
+        val darkMode = sharedPreferences.getBoolean("dark_mode", false)
+        if (darkMode) {
+            view?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.darkBackgroundColor))
+        } else {
+            view?.setBackgroundColor(ContextCompat.getColor(requireContext(), R.color.white))
+        }
+    }
+
+}

@@ -64,7 +64,7 @@ import java.util.Locale
 import kotlin.math.min
 private lateinit var loadingSpinner: ProgressBar
 private val handler = Handler(Looper.getMainLooper())
-private val API_KEY = "lun92se35d1c8e07yrt692xde9f2dba8bjmj4e9s5db4da6b4g5kz8nx76778d10"
+private val API_KEY = "YOUR_API_KEY"
 private const val READ_EXTERNAL_STORAGE_REQUEST_CODE = 101
 private const val FILE_PICK_REQUEST_CODE = 102
 private const val RANDOM = "1234567890"
@@ -427,7 +427,7 @@ class FileScanFragment : Fragment() {
         loadingOverlay.visibility = View.VISIBLE
         loadingSpinner.visibility = View.VISIBLE
         activity?.window?.setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE)
-        val API_KEY = "lun92se35d1c8e07yrt692xde9f2dba8bjmj4e9s5db4da6b4g5kz8nx76778d10"
+        val API_KEY = "YOUR_API_KEY"
 
         val url = "https://hybrid-analysis.com/api/v2/quick-scan/file"
         val request = object : VolleyFileUploadRequest(
